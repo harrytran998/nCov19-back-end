@@ -1,0 +1,9 @@
+version: '3'
+services:
+  build: '.'
+  environment:
+    - DB_URI=postgres://root:password@example-db/db?charset=UTF8
+  ports:
+    - '6969:6969'
+  volumes:
+    - ./example:/opt/app

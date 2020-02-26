@@ -1,0 +1,59 @@
+{
+  "name": "node-sql-realworld-boilerplate-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jetaimefrc/node-sql-realworld-boilerplate-app.git",
+  "author": "Demons Light <jetaimefrc@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "watch": "babel-watch -L src/index.js",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:migration:create": "sequelize-cli migration:create",
+    "db:seed": "sequelize-cli db:seed:all",
+    "db:setup": "yarn db:migrate && yarn db:seed"
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.13.4"
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "apollo-server": "^2.10.1",
+    "apollo-server-express": "^2.10.1",
+    "axios": "^0.19.2",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "pg": "^7.18.2",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.5",
+    "uuid": "^7.0.1"
+  },
+  "devDependencies": {
+    "babel-watch": "7.0.0",
+    "chalk": "3.0.0",
+    "eslint": "^6.8.0",
+    "lint-staged": "10.0.8",
+    "prettier": "1.19.1",
+    "pretty-quick": "2.0.1",
+    "sequelize-cli": "5.5.1",
+    "yorkie": "2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "node scripts/verify-commit-msg.js"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "pretty-quick --staged"
+    ]
+  }
+}
