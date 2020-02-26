@@ -17,4 +17,4 @@ services:
     ports:
       - '7101:7101'
     volumes:
-      - ./pubnow-backend:/opt/app
+      - .:/opt/app
