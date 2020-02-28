@@ -9,7 +9,7 @@
     "watch": "babel-watch -L src/index.js",
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo",
-    "db:migration:create": "sequelize migration:create",
+    "db:migrate:create": "sequelize migration:create --name",
     "db:seed": "sequelize db:seed:all",
     "db:setup": "yarn db:migrate && yarn db:seed"
   },
