@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize'
 
-import accessEnv from '#root/helpers/accessEnv'
+import accessEnv from '@helpers/accessEnv'
 
 const dbURI = accessEnv('DB_URI')
 

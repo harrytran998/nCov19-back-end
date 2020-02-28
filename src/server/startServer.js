@@ -1,3 +1,3 @@
 import path from 'path'
 
-console.log('Hello Bitch')
+console.log('Hello Babe')
