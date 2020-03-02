@@ -2,7 +2,7 @@ version: '3'
 services:
   pubnow-backend:
     build: '.'
-    # container_name: 'pubnow-backend'
+    container_name: 'pubnow-backend'
     depends_on:
       - pubnow-db
     environment:
