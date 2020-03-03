@@ -1,12 +1,5 @@
 import { User } from './User'
-import { hashPassword } from './node_modules/@libs/handlePassword'
-import { UserSession, CirrumculumVitae } from './node_modules/@models'
-
-/**
- * Association
- */
-
-// User.hasMany(UserSession)
+import { hashPassword } from '@libs/handlePassword'
 
 /**
  * Hooks
