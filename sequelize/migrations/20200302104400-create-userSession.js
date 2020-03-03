@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports.up = (queryInterface, DataTypes) => {
+module.exports.up = (queryInterface, Sequelize) => {
   return queryInterface.createTable(
     'userSessions',
     {
@@ -8,7 +8,7 @@ module.exports.up = (queryInterface, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
       userId: {
         allowNull: false,
@@ -16,16 +16,16 @@ module.exports.up = (queryInterface, DataTypes) => {
           key: 'id',
           model: 'users',
         },
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
       expiresAt: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     },
     {
