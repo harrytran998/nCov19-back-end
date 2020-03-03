@@ -1,12 +1,7 @@
-import bcrypt from 'bcrypt'
 import { DataTypes, Model } from 'sequelize'
 
 import sequelize from '@db/connection'
-
-/**
- * Constants.
- */
-const SALT_WORK_FACTOR = 12
+import { hashPassword } from '@libs/handlePassword'
 
 export class User extends Model {}
 User.init(
@@ -45,9 +40,23 @@ User.init(
         },
       },
     },
-    password: {
+    passwordHash: {
       allowNull: false,
       type: DataTypes.STRING,
+    },
+    password: {
+      type: DataTypes.VIRTUAL,
+      set(val) {
+        const password = String(val)
+        this.setDataValue('password', password)
+        this.setDataValue('passwordHash', hashPassword(password))
+      },
+      validate: {
+        len: {
+          args: [6, 128],
+          msg: 'Password must be between 6 and 128 characters in length',
+        },
+      },
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -59,10 +68,16 @@ User.init(
     },
   },
   {
-    defaultScope: {
-      rawAttributes: { exclude: ['password'] },
-    },
     modelName: 'users',
     sequelize,
+    paranoid: true,
+    /**
+     * Exclude passwordHash attribute when handle with model User
+     */
+    defaultScope: {
+      attributes: {
+        exclude: ['passwordHash'],
+      },
+    },
   },
 )
