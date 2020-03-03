@@ -18,6 +18,8 @@ module.exports = {
             key: 'id',
             model: 'curriculumVitaes',
           },
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
         },
         /**
          * Contains 2 value [X,Y] in cordinate system
@@ -39,10 +41,6 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
           defaultValue: Sequelize.NOW,
-        },
-        deletedAt: {
-          allowNull: true,
-          type: Sequelize.DATE,
         },
       },
       {
