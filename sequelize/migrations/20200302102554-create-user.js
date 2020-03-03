@@ -1,4 +1,5 @@
 'use strict'
+import { userRoles } from '@constants'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,47 +10,54 @@ module.exports = {
           allowNull: false,
           primaryKey: true,
           autoIncrement: true,
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
         },
         username: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           unique: true,
           allowNull: false,
         },
         passwordHash: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: true,
         },
         bio: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: true,
         },
         email: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           unique: true,
           allowNull: false,
         },
+        role: {
+          type: Sequelize.ENUM(Object.values(userRoles)),
+          allowNull: false,
+          defaultValue: Object.values(userRoles)[0], // normal USER
+        },
         createdAt: {
           allowNull: false,
-          type: DataTypes.DATE,
-          defaultValue: DataTypes.NOW,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.NOW,
         },
         updatedAt: {
           allowNull: false,
-          type: DataTypes.DATE,
-          defaultValue: DataTypes.NOW,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.NOW,
         },
         deletedAt: {
           allowNull: true,
-          type: DataTypes.DATE,
+          type: Sequelize.DATE,
         },
       },
       {
         charset: 'utf8',
-        timestamps: true,
       },
     )
   },
 
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('users'),
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "public"."enum_users_role"', { raw: true })
+    return queryInterface.dropTable('users')
+  },
 }
