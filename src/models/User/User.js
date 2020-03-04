@@ -10,8 +10,7 @@ User.init(
     id: {
       allowNull: false,
       primaryKey: true,
-      autoIncrementIdentity: true,
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
     },
     username: {
       allowNull: false,
@@ -73,6 +72,22 @@ User.init(
       allowNull: false,
       type: DataTypes.ENUM(Object.values(userRoles)),
       defaultValue: Object.values(userRoles)[0],
+    },
+    googleID: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    facebookID: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    linkedInId: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    tokensOAuth: {
+      allowNull: true,
+      type: DataTypes.ARRAY(DataTypes.JSON()),
     },
   },
   {
