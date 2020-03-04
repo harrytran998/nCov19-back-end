@@ -2,7 +2,7 @@
   "name": "node-sql-realworld-boilerplate-app",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/jetaimefrc/node-sql-realworld-boilerplate-app.git",
+  "repository": "https://github.com/jetaimefrc/base-cv.git",
   "author": "Demons Light <jetaimefrc@gmail.com>",
   "license": "MIT",
   "scripts": {
