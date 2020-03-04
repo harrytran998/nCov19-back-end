@@ -7,16 +7,18 @@ module.exports = {
         id: {
           allowNull: false,
           primaryKey: true,
-          autoIncrement: true,
-          type: Sequelize.INTEGER,
+          type: Sequelize.UUID,
+          defaultValue: Sequelize.literal('uuid_generate_v4()'),
         },
         userId: {
           allowNull: false,
+          type: Sequelize.UUID,
           references: {
             key: 'id',
             model: 'users',
           },
-          type: Sequelize.INTEGER,
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
         },
         expiresAt: {
           allowNull: false,
