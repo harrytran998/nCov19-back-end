@@ -61,12 +61,12 @@ User.init(
       },
     },
     avatar: {
-      type: DataTypes.STRING,
       allowNull: true,
+      type: DataTypes.STRING,
     },
     bio: {
-      type: DataTypes.STRING,
       allowNull: true,
+      type: DataTypes.STRING,
     },
     role: {
       allowNull: false,
