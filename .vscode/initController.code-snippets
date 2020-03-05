@@ -1,0 +1,18 @@
+{
+  "Init Controller": {
+    "scope": "javascript",
+    "prefix": "initcontroller",
+    "body": [
+      "/**",
+      "\t*",
+      "\t* @param {import('express').Request} req",
+      "\t* @param {import('express').Response} res",
+      "\t* @param {import('express').NextFunction} next",
+      "\t*/",
+      "export const ${1} = (req, res, next) => {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Init Controller"
+  }
+}
