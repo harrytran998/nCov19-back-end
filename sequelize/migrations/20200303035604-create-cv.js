@@ -1,37 +1,37 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, DataTypes) => {
     return queryInterface.createTable(
       'curriculumVitaes',
       {
         id: {
-          type: Sequelize.UUID,
+          type: DataTypes.UUID,
           allowNull: false,
           primaryKey: true,
-          defaultValue: Sequelize.literal('uuid_generate_v4()'),
+          defaultValue: DataTypes.literal('uuid_generate_v4()'),
         },
         avatarImage: {
-          type: Sequelize.STRING,
+          type: DataTypes.STRING,
           allowNull: false,
         },
         userInfo: {
-          type: Sequelize.ARRAY(Sequelize.JSON()),
+          type: DataTypes.ARRAY(DataTypes.JSON()),
           allowNull: false,
         },
         createdAt: {
           allowNull: false,
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.NOW,
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
         },
         updatedAt: {
           allowNull: false,
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.NOW,
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
         },
         deletedAt: {
           allowNull: true,
-          type: Sequelize.DATE,
+          type: DataTypes.DATE,
         },
       },
       {
@@ -40,7 +40,7 @@ module.exports = {
     )
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, DataTypes) => {
     return queryInterface.dropTable('curriculumVitaes')
   },
 }

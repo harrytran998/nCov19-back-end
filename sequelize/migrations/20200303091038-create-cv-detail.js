@@ -1,19 +1,19 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, DataTypes) => {
     return queryInterface.createTable(
       'cvDetails',
       {
         id: {
-          type: Sequelize.UUID,
+          type: DataTypes.UUID,
           allowNull: false,
           primaryKey: true,
-          defaultValue: Sequelize.literal('uuid_generate_v4()'),
+          defaultValue: DataTypes.literal('uuid_generate_v4()'),
         },
         cvId: {
           allowNull: false,
-          type: Sequelize.UUID,
+          type: DataTypes.UUID,
           references: {
             key: 'id',
             model: 'curriculumVitaes',
@@ -26,21 +26,21 @@ module.exports = {
          */
         coordinateAxis: {
           allowNull: false,
-          type: Sequelize.ARRAY(Sequelize.TEXT),
+          type: DataTypes.ARRAY(DataTypes.TEXT),
         },
         detailInformation: {
           allowNull: false,
-          type: Sequelize.JSON(),
+          type: DataTypes.JSON(),
         },
         createdAt: {
           allowNull: false,
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.NOW,
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
         },
         updatedAt: {
           allowNull: false,
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.NOW,
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW,
         },
       },
       {
@@ -49,7 +49,7 @@ module.exports = {
     )
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, DataTypes) => {
     return queryInterface.dropTable('cvDetails')
   },
 }
