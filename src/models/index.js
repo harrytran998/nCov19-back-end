@@ -1,4 +1,3 @@
-import User from './User'
-import UserSession from './UserSession'
+import { User as UserModel } from './User'
 
-export { User, UserSession }
+export const User = UserModel

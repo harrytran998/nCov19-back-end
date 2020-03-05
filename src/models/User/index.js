@@ -7,4 +7,4 @@ import { UserSession, CirrumculumVitae } from '@models'
 User.hasMany(UserSession)
 User.hasMany(CirrumculumVitae)
 
-export default User
+export { User }
