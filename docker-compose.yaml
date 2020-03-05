@@ -2,13 +2,12 @@ version: '3'
 services:
   pubnow-backend:
     build: '.'
-    container_name: 'pubnow-backend'
     depends_on:
       - pubnow-db
     environment:
       - DB_URI=postgres://root:password@pubnow-db/db?charset=UTF8
     ports:
-      - '7101:7101'
+      - '6969:6969'
     volumes:
       - .:/opt/app
 
