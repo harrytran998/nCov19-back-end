@@ -1,4 +1,5 @@
 'use strict'
+
 import { userRoles } from '@constants'
 
 module.exports = {
@@ -34,7 +35,23 @@ module.exports = {
         role: {
           type: DataTypes.ENUM(Object.values(userRoles)),
           allowNull: false,
-          defaultValue: Object.values(userRoles)[0], // normal USER
+          defaultValue: Object.values(userRoles)[0],
+        },
+        googleID: {
+          allowNull: true,
+          type: DataTypes.STRING,
+        },
+        facebookID: {
+          allowNull: true,
+          type: DataTypes.STRING,
+        },
+        linkedInId: {
+          allowNull: true,
+          type: DataTypes.STRING,
+        },
+        tokensOAuth: {
+          allowNull: true,
+          type: DataTypes.ARRAY(DataTypes.JSON()),
         },
         createdAt: {
           allowNull: false,
@@ -56,9 +73,8 @@ module.exports = {
       },
     )
   },
-
   down: async (queryInterface, DataTypes) => {
-    await queryInterface.DataTypes.query('DROP TYPE IF EXISTS "public"."enum_users_role"', { raw: true })
-    return queryInterface.dropTable('users')
+    await queryInterface.dropTable('users')
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "public"."enum_users_role"', { raw: true })
   },
 }

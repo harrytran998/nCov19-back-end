@@ -1,11 +1,11 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, DataTypes) => {
     return queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, DataTypes) => {
     return queryInterface.sequelize.query('DROP EXTENSION IF EXISTS "uuid-ossp" RESTRICT;')
   },
 }
