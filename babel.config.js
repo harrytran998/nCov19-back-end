@@ -10,6 +10,7 @@ module.exports = {
           '@db': './src/db',
           '@helpers': './src/helpers',
           '@libs': './src/libs',
+          '@middleware': './src/middleware',
           '@models': './src/models',
           '@server': './src/server',
           '@mutation': './src/graphql/resolvers/mutation',
