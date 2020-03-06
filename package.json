@@ -34,6 +34,8 @@
     "dotenv": "^8.2.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
+    "fbgraph": "^1.4.4",
+    "googleapis": "^47.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
@@ -45,7 +47,8 @@
     "pg": "^7.18.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-register": "6.26.0",
