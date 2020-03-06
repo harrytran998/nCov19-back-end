@@ -29,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 errorHandler(app)
 setupRoutes(app)
 
+console.log('Hello world')
+
 app.listen(PORT, '0.0.0.0', () => {
   console.info(`Server listinging on PORT: ${PORT}`)
 })
