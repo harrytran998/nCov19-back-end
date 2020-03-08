@@ -2,7 +2,7 @@ import sequelize from '@db'
 import { DataTypes, Model } from 'sequelize'
 
 import { hashPassword } from '@libs/handlePassword'
-import { userRoles } from '@constants'
+import userRoles from '@constants/roles'
 
 export class User extends Model {}
 User.init(

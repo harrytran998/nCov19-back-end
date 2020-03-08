@@ -1,6 +1,7 @@
 import passport from 'passport'
-import { User } from '../models'
+import { User } from '@models'
 import _ from '@helpers/lodash'
+
 /**
  *
  * @param {import('express').Request} req
@@ -21,6 +22,7 @@ export const getLogin = (req, res, next) => {
 export const postLogin = (req, res, next) => {
   const username = _.trim(req.body.username)
   const password = _.trim(req.body.password)
+
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err)
     if (!user) return res.redirect('/account/login')

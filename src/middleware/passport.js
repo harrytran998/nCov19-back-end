@@ -5,7 +5,7 @@ import { Strategy as FacebookStrategy } from 'passport-facebook'
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 
-import { User } from '../models'
+import { User } from '@models'
 
 passport.serializeUser((user, done) => {
   done(null, user.id)

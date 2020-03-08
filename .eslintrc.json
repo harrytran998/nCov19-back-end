@@ -11,5 +11,11 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "extends": ["plugin:import/errors", "plugin:import/warnings"],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
   "rules": {}
 }

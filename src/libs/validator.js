@@ -1,18 +1,5 @@
 import { body, matchedData, validationResult } from 'express-validator'
-import { errorsMessage } from '@constants'
-
-/** Models */
-
-export const userValidationRules = () => {
-  return [
-    body('username')
-      .isEmpty({ ignore_whitespace: true })
-      .withMessage(errorsMessage.MISSING_USERNAME),
-    body('password')
-      .isEmpty({ ignore_whitespace: true })
-      .withMessage(errorsMessage.MISSING_PASSWORD),
-  ]
-}
+import { MISSING_PASSWORD, MISSING_USERNAME } from '@constants/errorsMessage'
 
 /** Core */
 const validateFormat = (req, res, next) => {
@@ -32,3 +19,18 @@ const validateFormat = (req, res, next) => {
 }
 
 export default validateFormat
+
+/** Models */
+
+export const userValidationRules = () => [
+  body('username')
+    .trim()
+    .escape()
+    .isEmpty()
+    .withMessage(MISSING_USERNAME),
+  body('password')
+    .trim()
+    .escape()
+    .isEmpty()
+    .withMessage(MISSING_PASSWORD),
+]
