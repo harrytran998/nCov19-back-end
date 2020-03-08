@@ -2,8 +2,8 @@
   "name": "node-sql-realworld-boilerplate-app",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/jetaimefrc/base-cv.git",
-  "author": "Demons Light <jetaimefrc@gmail.com>",
+  "repository": "https://github.com/harrytran998/base-cv.git",
+  "author": "Demons Light <nhattq.coding@gmail.com>",
   "license": "MIT",
   "scripts": {
     "watch": "babel-watch -L src/index.js",
