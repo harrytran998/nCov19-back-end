@@ -1,6 +1,7 @@
 import passport from 'passport'
 import { User } from '@models'
 import _ from '@helpers/lodash'
+import { EMAIL_EXISTS } from '@constants/errorsMessage'
 
 /**
  *
@@ -14,7 +15,16 @@ export const getLogin = (req, res, next) => {
 }
 
 /**
- * #TODO: Add validation body params
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+export const hello = (req, res, next) => {
+  return res.status(200).json({ message: 'Hello world' })
+}
+
+/**
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
@@ -67,6 +77,18 @@ exports.getSignUp = (req, res) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const getSignup = (req, res, next) => {
-  if (req.user) return res.redirect('/')
+export const postSignUp = (req, res, next) => {
+  const { email, password } = req.body
+  return User.findOne({
+    where: { email },
+  })
+    .then(user => {
+      if (user) throw new Error(EMAIL_EXISTS)
+      return User.create({ email, password }).then(user => {
+        delete user.dataValues.password
+        delete user.dataValues.passwordHash
+        return res.status(200).json(user)
+      })
+    })
+    .catch(err => next(err))
 }

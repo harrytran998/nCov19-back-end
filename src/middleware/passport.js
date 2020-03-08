@@ -21,10 +21,10 @@ passport.deserializeUser((id, done) => {
  * SignIn using username + passsword
  */
 passport.use(
-  new LocalStrategy({ usernameField: 'username', passwordField: 'password' }, (username, password, done) => {
-    User.findOne({ where: { username: username.toLowerCase() } })
+  new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    User.findOne({ where: { email: email.toLowerCase() } })
       .then(user => {
-        if (!user) return done(null, false, { message: `${username} not found` })
+        if (!user) return done(null, false, { message: `Email ${email} not found` })
         if (!user.password) {
           return done(null, false, {
             message:
@@ -34,7 +34,7 @@ passport.use(
         user.verifyPassword(password).then((err, isMatch) => {
           if (err) return done(err)
           if (isMatch) return done(null, user)
-          return done(null, false, { message: 'Invalid username and password' })
+          return done(null, false, { message: 'Invalid email and password' })
         })
       })
 

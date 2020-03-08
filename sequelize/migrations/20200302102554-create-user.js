@@ -1,6 +1,6 @@
 'use strict'
 
-import { userRoles } from '@constants'
+import userRoles from '@constants/roles'
 
 module.exports = {
   up: (queryInterface, DataTypes) => {
@@ -13,7 +13,7 @@ module.exports = {
           type: DataTypes.UUID,
           defaultValue: DataTypes.literal('uuid_generate_v4()'),
         },
-        username: {
+        email: {
           type: DataTypes.STRING,
           unique: true,
           allowNull: false,
@@ -26,11 +26,6 @@ module.exports = {
         bio: {
           type: DataTypes.STRING,
           allowNull: true,
-        },
-        email: {
-          type: DataTypes.STRING,
-          unique: true,
-          allowNull: false,
         },
         role: {
           type: DataTypes.ENUM(Object.values(userRoles)),

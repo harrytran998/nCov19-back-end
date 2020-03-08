@@ -29,7 +29,6 @@ export const USER_NOT_FOUND = `${NOT_FOUND}/user-not-found`
 
 // Conflicts
 export const EMAIL_EXISTS = `${CONFLICT}/email-exists`
-export const USERNAME_EXISTS = `${CONFLICT}/username-exists`
 export const INVALID_LOGIN = `${UNAUTHORIZED}/invalid-login`
 
 // Authentication & authorization

@@ -11,17 +11,7 @@ User.init(
       allowNull: false,
       primaryKey: true,
       type: DataTypes.UUID,
-    },
-    username: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        len: {
-          args: [6, 50],
-          msg: 'Username must be between 6 and 50 characters in length',
-        },
-      },
+      defaultValue: DataTypes.UUIDV4,
     },
     email: {
       allowNull: false,
@@ -96,10 +86,13 @@ User.init(
     /**
      * Exclude passwordHash attribute when handle with model User
      */
-    defaultScope: {
-      attributes: {
-        exclude: ['passwordHash'],
-      },
+    // defaultScope: {
+    //   attributes: {
+    //     exclude: ['passwordHash', 'password'],
+    //   },
+    // },
+    attributes: {
+      exclude: ['passwordHash', 'password'],
     },
   },
 )
