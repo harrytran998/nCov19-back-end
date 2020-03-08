@@ -50,7 +50,7 @@ export const logout = (req, res, next) => {
  * GET /signup
  * Signup page.
  */
-exports.getSignuzp = (req, res) => {
+exports.getSignUp = (req, res) => {
   if (req.user) {
     return res.redirect('/')
   }
