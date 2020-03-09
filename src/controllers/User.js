@@ -2,6 +2,7 @@ import passport from 'passport'
 import { User } from '@models'
 import _ from '@helpers/lodash'
 import { EMAIL_EXISTS } from '@constants/errorsMessage'
+import { modelValidationErrors } from '@helpers/errorHandlers'
 
 /**
  *
@@ -90,5 +91,5 @@ export const postSignUp = (req, res, next) => {
         return res.status(200).json(user)
       })
     })
-    .catch(err => next(err))
+    .catch(err => modelValidationErrors(err, res, next))
 }
