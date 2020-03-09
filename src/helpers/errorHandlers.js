@@ -1,7 +1,7 @@
 import { Result } from 'express-validator'
 import { ValidationError } from 'sequelize'
-import logger from '@libs/logger'
 import { UNPROCESSABLE_ENTITY } from 'http-status-codes'
+import logger from '@libs/logger'
 /**
  *
  * @param {Result<ValidationError>} errors
@@ -23,14 +23,16 @@ export const responseValidatorErrors = (errors, res) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const modelValidationErrors = (err, res, next) => {
+export const modelValidationErrors = (err, res) => {
   logger.error(err)
+  const extractedErrors = []
   if (err instanceof ValidationError) {
     err.errors.forEach(error => {
-      return res.status(UNPROCESSABLE_ENTITY).json({
-        status: UNPROCESSABLE_ENTITY,
-        errors: { message: error.message, validatorName: error.validatorName },
-      })
+      extractedErrors.push({ [error.path]: error.message })
+    })
+    return res.status(UNPROCESSABLE_ENTITY).json({
+      status: UNPROCESSABLE_ENTITY,
+      errors: extractedErrors,
     })
   }
 }

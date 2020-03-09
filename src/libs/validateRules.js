@@ -2,7 +2,7 @@ import { body } from 'express-validator'
 import { MISSING_PASSWORD, MISSING_USERNAME } from '@constants/errorsMessage'
 
 export const userValidationRules = () => [
-  body('username')
+  body('email')
     .escape()
     .trim()
     .isEmpty({ ignore_whitespace: true })

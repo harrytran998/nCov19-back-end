@@ -91,5 +91,5 @@ export const postSignUp = (req, res, next) => {
         return res.status(200).json(user)
       })
     })
-    .catch(err => modelValidationErrors(err, res, next))
+    .catch(err => modelValidationErrors(err, res))
 }
