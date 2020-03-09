@@ -31,15 +31,15 @@ export const hello = (req, res, next) => {
  * @param {import('express').NextFunction} next
  */
 export const postLogin = (req, res, next) => {
-  const username = _.trim(req.body.username)
-  const password = _.trim(req.body.password)
-
+  // const username = _.trim(req.body.username)
+  // const password = _.trim(req.body.password)
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err)
     if (!user) return res.redirect('/account/login')
     req.logIn(user, err => {
       if (err) return next(err)
       res.redirect('/')
+      console.log(req.user)
     })
   })(req, res, next)
 }
@@ -55,7 +55,7 @@ export const logout = (req, res, next) => {
   req.session.destroy(err => {
     if (err) console.info('Error : Failed to destroy the session during logout.', err)
     req.user = null
-    res.redirect('/')
+    return res.status(200).json({ message: 'Logout Success' })
   })
 }
 
@@ -84,10 +84,16 @@ export const postSignUp = (req, res, next) => {
     where: { email },
   })
     .then(user => {
-      if (user) throw new Error(EMAIL_EXISTS)
+      if (user) {
+        return res.status(409).json({ message: EMAIL_EXISTS })
+      }
       return User.create({ email, password }).then(user => {
         delete user.dataValues.password
         delete user.dataValues.passwordHash
+        req.logIn(user, err => {
+          if (err) next(err)
+        })
+        console.log(req.user)
         return res.status(200).json(user)
       })
     })

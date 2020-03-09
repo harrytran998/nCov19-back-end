@@ -1,14 +1,16 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-import passport from 'passport'
+import session from 'express-session'
 
 import accessEnv from '@helpers/accessEnv'
 import setupRoutes from '@server/routes'
 import pagination from '@middleware/pagination'
 import cors from '@middleware/cors'
 import errorHandler from '@middleware/errorHandler'
+import passport from '@middleware/passport'
 
 const PORT = accessEnv('PORT', 6969)
+const SESSION_SECRET = accessEnv('SESSION_SECRET', 'nCov-19')
 const app = express()
 
 /**
@@ -21,15 +23,26 @@ const app = express()
  */
 app.use(pagination)
 app.use(cors())
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: SESSION_SECRET,
+    cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
+  }),
+)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
+app.disable('x-powered-by')
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 
 errorHandler(app)
 setupRoutes(app)
-
-console.log('Hello world')
 
 app.listen(PORT, '0.0.0.0', () => {
   console.info(`Server listinging on PORT: ${PORT}`)
