@@ -1,11 +1,4 @@
-/**
- *
- * @param {String} value
- */
 export default {
-  trim: value => {
-    return value.trim()
-  },
   pick: (object, keys) => {
     return keys.reduce((obj, key) => {
       if (object && object.hasOwnProperty(key)) {
