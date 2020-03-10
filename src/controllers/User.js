@@ -27,7 +27,6 @@ export const postLogin = (req, res, next) => {
     if (!user) return res.status(UNAUTHORIZED).json({ message: IS_NOT_AUTHENTICATED })
     req.logIn(user, err => {
       if (err) return next(err)
-      console.log(req.user)
     })
   })(req, res, next)
 }
@@ -52,9 +51,9 @@ export const postSignUp = (req, res, next) => {
         delete user.dataValues.password
         delete user.dataValues.passwordHash
         req.logIn(user, err => {
+          console.log(req.user)
           if (err) next(err)
         })
-        console.log(req.user)
         return res.status(200).json(user)
       })
     })
@@ -75,3 +74,6 @@ export const logout = (req, res, next) => {
     return res.status(200).json({ message: 'Logout Success' })
   })
 }
+
+// https://github.com/zachgoll/express-jwt-authentication-starter/blob/final/config/passport.js
+// https://zachgoll.github.io/blog/2019/choosing-authentication-strategy/#Authentication-Choices

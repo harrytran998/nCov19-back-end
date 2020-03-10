@@ -9,8 +9,8 @@ import { isAuthenticated } from '@middleware/auth'
  */
 const setupRoutes = app => {
   app.get('/authenticated', isAuthenticated, testAuthenticated)
-  app.post('/signUp', userValidationRules(), validator, postSignUp)
-  app.post('/logIn', userValidationRules(), validator, postLogin)
+  app.post('/signUp', validator, postSignUp)
+  app.post('/logIn', postLogin)
   app.get('/logout', logout)
 }
 
