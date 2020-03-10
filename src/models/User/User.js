@@ -1,10 +1,7 @@
 import sequelize from '@db'
-import { DataTypes, Model } from 'sequelize'
-
-import { hashPassword } from '@libs/handlePassword'
+import User from './UserDetail'
 import userRoles from '@constants/roles'
 
-export class User extends Model {}
 User.init(
   {
     id: {
@@ -86,13 +83,12 @@ User.init(
     /**
      * Exclude passwordHash attribute when handle with model User
      */
-    // defaultScope: {
-    //   attributes: {
-    //     exclude: ['passwordHash', 'password'],
-    //   },
-    // },
-    attributes: {
-      exclude: ['passwordHash', 'password'],
+    defaultScope: {
+      attributes: {
+        exclude: ['passwordHash', 'password'],
+      },
     },
   },
 )
+
+export default User

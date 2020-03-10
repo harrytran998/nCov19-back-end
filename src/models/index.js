@@ -1,3 +1,3 @@
-import { User as UserModel } from './User'
+import { User } from './User'
 
-export const User = UserModel
+export { User }

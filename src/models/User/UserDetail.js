@@ -1,6 +1,20 @@
 import crypto from 'crypto'
-import { User } from './User'
+import { DataTypes, Model } from 'sequelize'
+
 import { hashPassword, comparePassword } from '@libs/handlePassword'
+
+class User extends Model {
+  /// Class level method
+
+  static doSomthing() {
+    console.log('Hello mother fucker', this.getDataValue('passwordHash'))
+  }
+  /// Instance level method
+
+  verifyPassword(inputPassword) {
+    return comparePassword(inputPassword, this.passwordHash)
+  }
+}
 
 /**
  * Hooks
@@ -21,18 +35,7 @@ User.addHook('beforeCreate', (user, option) => {
 })
 
 /**
- * Instance Method
+ * Associations
  */
-User.prototype.verifyPassword = inputPassword => {
-  return comparePassword(inputPassword, this.passwordHash)
-}
-
-/**
- * Class Method
- */
-
-// User.doSomthing = something => {
-//   console.log(`User do ${something}`)
-// }
 
 export default User
