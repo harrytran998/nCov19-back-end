@@ -2,6 +2,9 @@
  * Login Required middleware.
  */
 
+import { UNAUTHORIZED } from 'http-status-codes'
+import { IS_NOT_AUTHENTICATED } from '@constants/errorsMessage'
+
 /**
  *
  * @param {import('express').Request} req
@@ -10,5 +13,5 @@
  */
 export const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) return next()
-  res.redirect('/login')
+  return res.status(UNAUTHORIZED).json({ message: IS_NOT_AUTHENTICATED })
 }

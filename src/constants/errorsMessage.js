@@ -33,6 +33,7 @@ export const INVALID_LOGIN = `${UNAUTHORIZED}/invalid-login`
 
 // Authentication & authorization
 export const INCORRECT_PASSWORD = `${UNAUTHORIZED}/incorrect-password`
+export const IS_NOT_AUTHENTICATED = `${UNAUTHORIZED}/not-authenticated`
 export const INSUFFICIENT_PERMISSION = `${FORBIDDEN}/insufficient-permission`
 export const UNVERIFIED_EMAIL = `${UNAUTHORIZED}/unverified-email`
 export const INVALID_API_KEY_SECRET = `${UNAUTHORIZED}/invalid-api-key-secret`

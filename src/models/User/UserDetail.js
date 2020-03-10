@@ -8,6 +8,7 @@ class User extends Model {
 
   static doSomthing() {
     console.log('Hello mother fucker', this.getDataValue('passwordHash'))
+    console.log(this.passwordHash)
   }
   /// Instance level method
 
