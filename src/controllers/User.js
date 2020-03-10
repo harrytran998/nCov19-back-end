@@ -3,6 +3,7 @@ import { User } from '@models'
 import _ from '@helpers/lodash'
 import { EMAIL_EXISTS } from '@constants/errorsMessage'
 import { modelValidationErrors } from '@helpers/errorHandlers'
+import sequelize from '@db'
 
 /**
  *
@@ -87,6 +88,7 @@ export const postSignUp = (req, res, next) => {
       if (user) {
         return res.status(409).json({ message: EMAIL_EXISTS })
       }
+      console.log(User.doSomthing())
       return User.create({ email, password }).then(user => {
         delete user.dataValues.password
         delete user.dataValues.passwordHash
