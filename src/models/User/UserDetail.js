@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { DataTypes, Model } from 'sequelize'
+import { Model } from 'sequelize'
 
 import { hashPassword, comparePassword } from '@libs/handlePassword'
 

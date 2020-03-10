@@ -1,3 +1,4 @@
+import { DataTypes } from 'sequelize'
 import sequelize from '@db'
 import User from './UserDetail'
 import userRoles from '@constants/roles'
