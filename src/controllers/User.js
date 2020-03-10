@@ -1,9 +1,10 @@
 import passport from 'passport'
 import { User } from '@models'
 import _ from '@helpers/lodash'
-import { EMAIL_EXISTS } from '@constants/errorsMessage'
+import { EMAIL_EXISTS, IS_NOT_AUTHENTICATED } from '@constants/errorsMessage'
 import { modelValidationErrors } from '@helpers/errorHandlers'
 import sequelize from '@db'
+import { UNAUTHORIZED } from 'http-status-codes'
 
 /**
  *
@@ -11,19 +12,8 @@ import sequelize from '@db'
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const getLogin = (req, res, next) => {
-  if (req.user) return res.redirect('/')
-  res.render('/account/login')
-}
-
-/**
- *
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
- */
-export const hello = (req, res, next) => {
-  return res.status(200).json({ message: 'Hello world' })
+export const testAuthenticated = (req, res, next) => {
+  return res.status(200).json({ message: 'authenticated router' })
 }
 
 /**
@@ -32,45 +22,14 @@ export const hello = (req, res, next) => {
  * @param {import('express').NextFunction} next
  */
 export const postLogin = (req, res, next) => {
-  // const username = _.trim(req.body.username)
-  // const password = _.trim(req.body.password)
-  passport.authenticate('local', (err, user, info) => {
+  passport.authenticate('local', (err, user, _) => {
     if (err) return next(err)
-    if (!user) return res.redirect('/account/login')
+    if (!user) return res.status(UNAUTHORIZED).json({ message: IS_NOT_AUTHENTICATED })
     req.logIn(user, err => {
       if (err) return next(err)
-      res.redirect('/')
       console.log(req.user)
     })
   })(req, res, next)
-}
-
-/**
- *
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
- */
-export const logout = (req, res, next) => {
-  req.logout()
-  req.session.destroy(err => {
-    if (err) console.info('Error : Failed to destroy the session during logout.', err)
-    req.user = null
-    return res.status(200).json({ message: 'Logout Success' })
-  })
-}
-
-/**
- * GET /signup
- * Signup page.
- */
-exports.getSignUp = (req, res) => {
-  if (req.user) {
-    return res.redirect('/')
-  }
-  res.render('account/signup', {
-    title: 'Create Account',
-  })
 }
 
 /**
@@ -100,4 +59,19 @@ export const postSignUp = (req, res, next) => {
       })
     })
     .catch(err => modelValidationErrors(err, res))
+}
+
+/**
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+export const logout = (req, res, next) => {
+  req.logout()
+  req.session.destroy(err => {
+    if (err) console.info('Error : Failed to destroy the session during logout.', err)
+    req.user = null
+    return res.status(200).json({ message: 'Logout Success' })
+  })
 }
