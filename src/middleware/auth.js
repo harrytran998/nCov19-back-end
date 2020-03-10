@@ -1,9 +1,9 @@
+import { UNAUTHORIZED } from 'http-status-codes'
+import { IS_NOT_AUTHENTICATED } from '@constants/errorsMessage'
+
 /**
  * Login Required middleware.
  */
-
-import { UNAUTHORIZED } from 'http-status-codes'
-import { IS_NOT_AUTHENTICATED } from '@constants/errorsMessage'
 
 /**
  *
