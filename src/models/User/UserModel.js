@@ -2,8 +2,6 @@ import { DataTypes } from 'sequelize'
 import sequelize from '@db'
 import User from './UserDetail'
 import userRoles from '@constants/roles'
-import { hashPassword } from '@libs/handlePassword'
-import crypto from 'crypto'
 
 User.init(
   {
@@ -89,21 +87,6 @@ User.init(
     defaultScope: {
       attributes: {
         exclude: ['passwordHash', 'password'],
-      },
-    },
-    hooks: {
-      beforeUpdate(user, option) {
-        if (!user.changed('passwordHash')) return
-        return hashPassword(user.passwordHash)
-      },
-      beforeCreate(user, option) {
-        const md5 = crypto
-          .createHash('md5')
-          .update(user.email)
-          .digest('hex')
-        if (user.avatar === undefined && user.email) {
-          user.avatar = `https://secure.gravatar.com/avatar/${md5}?s=200&d=identicon`
-        }
       },
     },
   },
