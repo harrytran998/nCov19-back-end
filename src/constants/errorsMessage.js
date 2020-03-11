@@ -8,32 +8,34 @@ import {
 } from 'http-status-codes'
 
 // Server errors
-export const DEFAULT = `${INTERNAL_SERVER_ERROR}/server-error`
+export const DEFAULT = `${INTERNAL_SERVER_ERROR} - Server error`
+export const SOMETHING_WRONG = `${INTERNAL_SERVER_ERROR} - Oops! Somthing went wrong!`
 
 // Tokens
-export const MISSING_TOKEN = `${UNPROCESSABLE_ENTITY}/missing-token`
-export const REVOKED_TOKEN = `${UNAUTHORIZED}/revoked-token`
-export const INVALID_TOKEN = `${UNAUTHORIZED}/invalid-token`
-export const EXPIRED_TOKEN = `${UNAUTHORIZED}/expired-token`
+export const MISSING_TOKEN = `${UNPROCESSABLE_ENTITY} - Missing token`
+export const REVOKED_TOKEN = `${UNAUTHORIZED} - Revoked token`
+export const INVALID_TOKEN = `${UNAUTHORIZED} - Invalid token`
+export const EXPIRED_TOKEN = `${UNAUTHORIZED} - Expired token`
 
 // Invalid user inputs
-export const INVALID_INPUT = `${UNPROCESSABLE_ENTITY}/invalid-input`
-export const MISSING_USERNAME = `${UNPROCESSABLE_ENTITY}/missing-username`
-export const MISSING_EMAIL = `${UNPROCESSABLE_ENTITY}/missing-email`
-export const MISSING_PASSWORD = `${UNPROCESSABLE_ENTITY}/missing-password`
-export const MISSING_FIELD = `${UNPROCESSABLE_ENTITY}/missing-field`
+export const INVALID_INPUT = `${UNPROCESSABLE_ENTITY} - Invalid input`
+export const MISSING_USERNAME = `${UNPROCESSABLE_ENTITY} - Missing username`
+export const MISSING_EMAIL = `${UNPROCESSABLE_ENTITY} - Missing email`
+export const MISSING_PASSWORD = `${UNPROCESSABLE_ENTITY} - Missing password`
+export const MISSING_FIELD = `${UNPROCESSABLE_ENTITY} - Missing field`
 
 // Not found
-export const RESOURCE_NOT_FOUND = `${NOT_FOUND}/resource-not-found`
-export const USER_NOT_FOUND = `${NOT_FOUND}/user-not-found`
+export const RESOURCE_NOT_FOUND = `${NOT_FOUND} - Resource not found`
+export const USER_NOT_FOUND = `${NOT_FOUND} - User not found`
 
 // Conflicts
-export const EMAIL_EXISTS = `${CONFLICT}/email-exists`
-export const INVALID_LOGIN = `${UNAUTHORIZED}/invalid-login`
+export const EMAIL_EXISTS = `${CONFLICT} - Email exists`
+export const INVALID_LOGIN = `${UNAUTHORIZED}- Invalid login`
 
 // Authentication & authorization
-export const INCORRECT_PASSWORD = `${UNAUTHORIZED}/incorrect-password`
-export const IS_NOT_AUTHENTICATED = `${UNAUTHORIZED}/not-authenticated`
-export const INSUFFICIENT_PERMISSION = `${FORBIDDEN}/insufficient-permission`
-export const UNVERIFIED_EMAIL = `${UNAUTHORIZED}/unverified-email`
-export const INVALID_API_KEY_SECRET = `${UNAUTHORIZED}/invalid-api-key-secret`
+export const INVALID_USER = `${UNAUTHORIZED} - Invalid user`
+export const INCORRECT_PASSWORD = `${UNAUTHORIZED} - Incorrect password`
+export const IS_NOT_AUTHENTICATED = `${UNAUTHORIZED} - Not authenticated`
+export const INSUFFICIENT_PERMISSION = `${FORBIDDEN} Insufficient permission`
+export const UNVERIFIED_EMAIL = `${UNAUTHORIZED} - Unverified email`
+export const INVALID_API_KEY_SECRET = `${UNAUTHORIZED} - Invalid api key secret`
