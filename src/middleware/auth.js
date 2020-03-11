@@ -1,7 +1,7 @@
+import { UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND } from 'http-status-codes'
 import { User } from '@models'
 import { verify } from 'jsonwebtoken'
 import accessEnv from '@helpers/accessEnv'
-import { UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND } from 'http-status-codes'
 import {
   IS_NOT_AUTHENTICATED,
   INVALID_TOKEN,
@@ -34,7 +34,7 @@ export const checkTokenSetUser = async (req, res, next) => {
         next()
       })
       .catch(err => {
-        if (err.name === 'TokenExpiredError') {
+        if (err.name === EXPIRED_TOKEN) {
           return generalErrors(res, UNAUTHORIZED, EXPIRED_TOKEN)
         } else if (err.name === 'JsonWebTokenError') {
           return generalErrors(res, UNAUTHORIZED, INVALID_TOKEN)
