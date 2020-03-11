@@ -17,5 +17,10 @@
       "babel-module": {}
     }
   },
-  "rules": {}
+  "rules": {
+    "no-unused-vars": "error",
+    "no-undef": "error",
+    "quotes": ["error", "single"],
+    "no-trailing-spaces": "error"
+  }
 }

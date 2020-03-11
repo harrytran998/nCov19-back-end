@@ -1,18 +1,16 @@
-import passport from 'passport'
 import { User } from '@models'
-import _ from '@helpers/lodash'
-import { EMAIL_EXISTS, IS_NOT_AUTHENTICATED } from '@constants/errorsMessage'
+import { EMAIL_EXISTS } from '@constants/errorsMessage'
 import { modelValidationErrors } from '@helpers/errorHandlers'
-import sequelize from '@db'
-import { UNAUTHORIZED } from 'http-status-codes'
+// import { UNAUTHORIZED } from 'http-status-codes'
+// import _ from '@helpers/lodash'
+// import sequelize from '@db'
 
 /**
  *
  * @param {import('express').Request} req
  * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
  */
-export const testAuthenticated = (req, res, next) => {
+export const testAuthenticated = (req, res) => {
   return res.status(200).json({ message: 'authenticated router' })
 }
 
@@ -21,15 +19,7 @@ export const testAuthenticated = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const postLogin = (req, res, next) => {
-  passport.authenticate('local', (err, user, _) => {
-    if (err) return next(err)
-    if (!user) return res.status(UNAUTHORIZED).json({ message: IS_NOT_AUTHENTICATED })
-    req.logIn(user, err => {
-      if (err) return next(err)
-    })
-  })(req, res, next)
-}
+// export const postLogin = (req, res, next) => {}
 
 /**
  *
@@ -66,7 +56,7 @@ export const postSignUp = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const logout = (req, res, next) => {
+export const logout = (req, res) => {
   req.logout()
   req.session.destroy(err => {
     if (err) console.info('Error : Failed to destroy the session during logout.', err)
