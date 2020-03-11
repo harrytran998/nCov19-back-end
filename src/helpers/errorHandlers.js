@@ -2,6 +2,18 @@ import { Result } from 'express-validator'
 import { ValidationError } from 'sequelize'
 import { UNPROCESSABLE_ENTITY } from 'http-status-codes'
 import logger from '@libs/logger'
+
+/**
+ *
+ * @param {import('express').Response} res
+ * @param {Number} statusCode
+ * @param {String} message
+ */
+export const generalErrors = (res, code, message) => {
+  logger.error(message)
+  return res.status(code).json({ message })
+}
+
 /**
  *
  * @param {Result<ValidationError>} errors
