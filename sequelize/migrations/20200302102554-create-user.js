@@ -8,21 +8,24 @@ module.exports = {
       'users',
       {
         id: {
-          allowNull: false,
-          primaryKey: true,
           type: DataTypes.UUID,
+          allowNull: false,
           defaultValue: DataTypes.literal('uuid_generate_v4()'),
+          primaryKey: true,
         },
         email: {
           type: DataTypes.STRING,
-          unique: true,
           allowNull: false,
+          unique: true,
         },
         passwordHash: {
           type: DataTypes.STRING,
           allowNull: true,
         },
-        avatar: DataTypes.STRING,
+        avatar: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
         bio: {
           type: DataTypes.STRING,
           allowNull: true,
@@ -32,35 +35,43 @@ module.exports = {
           allowNull: false,
           defaultValue: Object.values(userRoles)[0],
         },
-        googleID: {
+        isActive: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: true,
+        },
+        acceptTokenAfter: {
+          type: DataTypes.DATE,
           allowNull: true,
+        },
+        googleID: {
           type: DataTypes.STRING,
+          allowNull: true,
         },
         facebookID: {
-          allowNull: true,
           type: DataTypes.STRING,
+          allowNull: true,
         },
         linkedInId: {
-          allowNull: true,
           type: DataTypes.STRING,
+          allowNull: true,
         },
         tokensOAuth: {
-          allowNull: true,
           type: DataTypes.ARRAY(DataTypes.JSON()),
+          allowNull: true,
         },
         createdAt: {
-          allowNull: false,
           type: DataTypes.DATE,
+          allowNull: false,
           defaultValue: DataTypes.NOW,
         },
         updatedAt: {
-          allowNull: false,
           type: DataTypes.DATE,
+          allowNull: false,
           defaultValue: DataTypes.NOW,
         },
         deletedAt: {
-          allowNull: true,
           type: DataTypes.DATE,
+          allowNull: true,
         },
       },
       {

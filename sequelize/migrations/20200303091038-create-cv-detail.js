@@ -8,12 +8,12 @@ module.exports = {
         id: {
           type: DataTypes.UUID,
           allowNull: false,
-          primaryKey: true,
           defaultValue: DataTypes.literal('uuid_generate_v4()'),
+          primaryKey: true,
         },
         cvId: {
-          allowNull: false,
           type: DataTypes.UUID,
+          allowNull: false,
           references: {
             key: 'id',
             model: 'curriculumVitaes',
@@ -25,21 +25,21 @@ module.exports = {
          * Contains 2 value [X,Y] in cordinate system
          */
         coordinateAxis: {
-          allowNull: false,
           type: DataTypes.ARRAY(DataTypes.TEXT),
+          allowNull: false,
         },
         detailInformation: {
-          allowNull: false,
           type: DataTypes.JSON(),
+          allowNull: false,
         },
         createdAt: {
-          allowNull: false,
           type: DataTypes.DATE,
+          allowNull: false,
           defaultValue: DataTypes.NOW,
         },
         updatedAt: {
-          allowNull: false,
           type: DataTypes.DATE,
+          allowNull: false,
           defaultValue: DataTypes.NOW,
         },
       },

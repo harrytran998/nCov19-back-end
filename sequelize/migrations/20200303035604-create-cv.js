@@ -8,8 +8,8 @@ module.exports = {
         id: {
           type: DataTypes.UUID,
           allowNull: false,
-          primaryKey: true,
           defaultValue: DataTypes.literal('uuid_generate_v4()'),
+          primaryKey: true,
         },
         avatarImage: {
           type: DataTypes.STRING,
@@ -20,18 +20,18 @@ module.exports = {
           allowNull: false,
         },
         createdAt: {
-          allowNull: false,
           type: DataTypes.DATE,
+          allowNull: false,
           defaultValue: DataTypes.NOW,
         },
         updatedAt: {
-          allowNull: false,
           type: DataTypes.DATE,
+          allowNull: false,
           defaultValue: DataTypes.NOW,
         },
         deletedAt: {
-          allowNull: true,
           type: DataTypes.DATE,
+          allowNull: true,
         },
       },
       {
