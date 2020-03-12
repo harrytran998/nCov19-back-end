@@ -1,12 +1,12 @@
 const chalk = require('chalk')
+const { readFileSync } = require('fs')
+
 const msgPath = process.env.GIT_PARAMS
-const msg = require('fs')
-  .readFileSync(msgPath, 'utf-8')
-  .trim()
+const msg = readFileSync(msgPath, 'utf-8').trim()
 
-const commitMes = /^(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
+const commitRegex = /^(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
 
-if (!commitMes.test(msg)) {
+if (!commitRegex.test(msg)) {
   console.log()
   console.error(
     `  ${chalk.bgRed.white(' ERROR ')} ${chalk.red('invalid commit message format.')}\n\n` +
