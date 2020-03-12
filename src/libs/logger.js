@@ -8,11 +8,17 @@ const labelName = 'NAME_PROJECT errors'
 const formatDate = 'DD-MM-YYYY T HH:mm:ss'
 
 const myFormat = printf(info => {
-  return `[${timestamp({ format: formatDate })}] [${info.level}] => ${info.message}`
+  return `[${info.level}] => ${info.message}`
 })
-const combineFormat = combine(colorize(), splat(), myFormat, label({ label: labelName }))
+const combineFormat = combine(
+  label({ label: labelName }),
+  timestamp({ format: formatDate }),
+  colorize(),
+  splat(),
+  myFormat,
+)
 
-const winstonConsole = transports.Console({
+const winstonConsole = new transports.Console({
   level: winstonLevel,
   format: combineFormat,
 })
