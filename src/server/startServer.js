@@ -5,7 +5,7 @@ import { config } from 'dotenv'
 import accessEnv from '@helpers/accessEnv'
 import setupRoutes from '@server/routes'
 import pagination from '@middleware/pagination'
-import { corsMiddleware, setCorsHeader } from '@middleware/cors'
+import { setCorsHeader } from '@middleware/cors'
 import errorHandler from '@middleware/errorHandler'
 import { checkTokenSetUser } from '@middleware/auth'
 
@@ -22,14 +22,13 @@ const app = express()
  * - Body parser
  */
 app.use(pagination)
-app.use(corsMiddleware())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet())
 app.disable('x-powered-by')
 
-app.all('/api/*', (req, res, next) => checkTokenSetUser(req, res, next))
-app.all('/*', (req, res, next) => setCorsHeader(req, res, next))
+app.use(setCorsHeader)
+app.all('/api/*', checkTokenSetUser)
 
 errorHandler(app)
 setupRoutes(app)

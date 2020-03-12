@@ -10,9 +10,8 @@ import { OK, CONFLICT, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NO_CONTENT } from 'h
  */
 export const postLogin = (req, res, next) => {
   const { email, password } = req.body
-  return User.findOne({ logging: true, where: { email } })
+  return User.findOne({ where: { email } })
     .then(user => {
-      console.log(user)
       return user.verifyPassword(password, user.passwordHash).then(isMach => {
         if (isMach) return res.status(OK).json(user.generateToken())
         return generalErrors(res, UNAUTHORIZED, INCORRECT_CREDENTIALS)
