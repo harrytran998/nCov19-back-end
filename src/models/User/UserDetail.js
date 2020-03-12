@@ -1,11 +1,8 @@
 import { Model } from 'sequelize'
-import jwt from 'jsonwebtoken'
 import { comparePassword } from '@libs/handlePassword'
 import _ from '@helpers/lodash'
-import accessEnv from '@helpers/accessEnv'
 import { EXPIRED_TOKEN } from '@constants/errorsMessage'
-
-const JWT_SECRET = accessEnv('JWT_SECRET')
+import { createJWT } from '@libs/jwt'
 
 class User extends Model {
   /// Class level method
@@ -25,13 +22,13 @@ class User extends Model {
     })
   }
   /// Instance level method
-  verifyPassword(inputPassword) {
-    return comparePassword(inputPassword, this.passwordHash)
+  verifyPassword(inputPassword, passwordHash) {
+    return comparePassword(inputPassword, passwordHash)
   }
   generateToken() {
     const expiresIn = 30 * 24 * 60 * 60 // 1 month
-    const payload = _.pick(this, 'id')
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn })
+    const payload = _.pick(this, ['id'])
+    const token = createJWT(payload, expiresIn)
     // Return the token + instance user
     return {
       token,

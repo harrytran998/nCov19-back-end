@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize'
 import sequelize from '@db'
 import User from './UserDetail'
 import userRoles from '@constants/roles'
+import { hashPassword } from '@libs/handlePassword'
 
 User.init(
   {
@@ -86,7 +87,7 @@ User.init(
      */
     defaultScope: {
       attributes: {
-        exclude: ['passwordHash', 'password'],
+        exclude: ['password'],
       },
     },
   },
