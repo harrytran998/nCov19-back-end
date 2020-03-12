@@ -1,4 +1,8 @@
 export default {
+  /**
+   * @param {Object} object
+   * @param {Array} keys
+   */
   pick: (object, keys) => {
     return keys.reduce((obj, key) => {
       if (object && object.hasOwnProperty(key)) {

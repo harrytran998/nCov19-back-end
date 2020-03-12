@@ -21,7 +21,7 @@ export const generalErrors = (res, statusCode, message) => {
 export const responseValidatorErrors = (errors, res) => {
   logger.error(errors)
   const extractedErrors = []
-  errors.array().map(err => extractedErrors.push({ [err.name]: err.msg }))
+  errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
   return res.status(UNPROCESSABLE_ENTITY).json({
     status: UNPROCESSABLE_ENTITY,
     errors: extractedErrors,
