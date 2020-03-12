@@ -1,7 +1,8 @@
-import { postSignUp, testIsAdmin, postLogin, logout } from '@controllers/User'
 import validator from '@middleware/validator'
 import { userValidationRules } from '@libs/validateRules'
 import { isAdmind } from '@middleware/auth'
+import { postSignUp, logout, postLogin } from '@controllers/Auth'
+import { testIsAdmin } from '@controllers/User'
 
 /**
  *
