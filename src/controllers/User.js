@@ -1,8 +1,7 @@
 import { User } from '@models'
-import { EMAIL_EXISTS } from '@constants/errorsMessage'
-import { modelValidationErrors, generalErrors } from '@helpers/errorHandlers'
-import { OK, CONFLICT } from 'http-status-codes'
-// import { UNAUTHORIZED } from 'http-status-codes'
+import { EMAIL_EXISTS, INCORRECT_CREDENTIALS, EMAIL_NOT_FOUND, SOMETHING_WRONG } from '@constants/errorsMessage'
+import { generalErrors } from '@helpers/errorHandlers'
+import { OK, CONFLICT, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NO_CONTENT } from 'http-status-codes'
 // import _ from '@helpers/lodash'
 // import sequelize from '@db'
 
@@ -11,8 +10,8 @@ import { OK, CONFLICT } from 'http-status-codes'
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export const testAuthenticated = (req, res) => {
-  return generalErrors(res, OK, 'Authenticated router')
+export const testIsAdmin = (req, res) => {
+  return generalErrors(res, OK, `UNAUTHORIZED - Is this admin's routes`)
 }
 
 /**
@@ -20,7 +19,17 @@ export const testAuthenticated = (req, res) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-// export const postLogin = (req, res, next) => {}
+export const postLogin = (req, res, next) => {
+  const { email, password } = req.body
+  return User.findOne({ where: { email } })
+    .then(user => {
+      return user.verifyPassword(password).then(isMach => {
+        if (isMach) return res.status(OK).json(user.generateToken())
+        return generalErrors(res, UNAUTHORIZED, INCORRECT_CREDENTIALS)
+      })
+    })
+    .catch(() => generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND))
+}
 
 /**
  *
@@ -43,7 +52,7 @@ export const postSignUp = (req, res, next) => {
         return res.status(200).json(user)
       })
     })
-    .catch(err => modelValidationErrors(err, res))
+    .catch(() => generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG))
 }
 
 /**
@@ -52,4 +61,8 @@ export const postSignUp = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const logout = (req, res) => {}
+export const logout = (req, res) => {
+  return User.update({ acceptTokenAfter: new Date() }).then(() => {
+    return res.status(NO_CONTENT).json({ message: 'Log out successfully' })
+  })
+}
