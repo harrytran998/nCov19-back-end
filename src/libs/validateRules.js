@@ -1,15 +1,14 @@
-import { body } from 'express-validator'
-import { MISSING_PASSWORD, MISSING_USERNAME } from '@constants/errorsMessage'
+import { check } from 'express-validator'
+import { MISSING_PASSWORD, INVALID_INPUT } from '@constants/errorsMessage'
 
 export const userValidationRules = () => [
-  body('email')
+  check('email')
     .escape()
     .trim()
-    .isEmpty({ ignore_whitespace: true })
-    .withMessage(MISSING_USERNAME),
-  body('password')
+    .isEmail()
+    .withMessage(INVALID_INPUT),
+  check('password', MISSING_PASSWORD)
     .escape()
-    .trim()
-    .isEmpty({ ignore_whitespace: true })
-    .withMessage(MISSING_PASSWORD),
+    .trim(),
+  // .isEmpty({ ignore_whitespace: true })
 ]
