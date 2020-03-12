@@ -1,17 +1,26 @@
-import winston, { format } from 'winston'
+import { format, createLogger, transports } from 'winston'
+
+const { colorize, combine, splat, printf, timestamp, label } = format
 
 const winstonLevel = 'info'
-const winstonFormat = winston.format.combine(format.colorize(), format.splat(), format.simple())
+const loggFile = 'aggregated.log'
+const labelName = 'NAME_PROJECT errors'
+const formatDate = 'DD-MM-YYYY T HH:mm:ss'
 
-const winstonConsole = new winston.transports.Console({
+const myFormat = printf(info => {
+  return `[${timestamp({ format: formatDate })}] [${info.level}] => ${info.message}`
+})
+const combineFormat = combine(colorize(), splat(), myFormat, label({ label: labelName }))
+
+const winstonConsole = transports.Console({
   level: winstonLevel,
-  format: winstonFormat,
+  format: combineFormat,
 })
 
-const logger = winston.createLogger({
+const logger = createLogger({
   level: winstonLevel,
-  format: winstonFormat,
-  transports: [new winston.transports.Console()],
+  format: combineFormat,
+  transports: [new transports.Console(), new transports.File({ filename: loggFile })],
   exceptionHandlers: winstonConsole,
 })
 
