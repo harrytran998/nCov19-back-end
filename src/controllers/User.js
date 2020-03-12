@@ -10,8 +10,8 @@ import { OK, CONFLICT, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NO_CONTENT } from 'h
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export const testIsAdmin = (req, res) => {
-  return generalErrors(res, OK, `UNAUTHORIZED - Is this admin's routes`)
+export const testIsAdmin = (req, res, next) => {
+  return res.status(OK).json({ message: 'Secrete ' })
 }
 
 /**
@@ -21,14 +21,16 @@ export const testIsAdmin = (req, res) => {
  */
 export const postLogin = (req, res, next) => {
   const { email, password } = req.body
-  return User.findOne({ where: { email } })
+  return User.findOne({ logging: true, where: { email } })
     .then(user => {
-      return user.verifyPassword(password).then(isMach => {
+      console.log(user)
+      return user.verifyPassword(password, user.passwordHash).then(isMach => {
         if (isMach) return res.status(OK).json(user.generateToken())
         return generalErrors(res, UNAUTHORIZED, INCORRECT_CREDENTIALS)
       })
     })
-    .catch(() => generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND))
+    .catch(err => next(err))
+  // generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND)
 }
 
 /**
@@ -39,20 +41,17 @@ export const postLogin = (req, res, next) => {
  */
 export const postSignUp = (req, res, next) => {
   const { email, password } = req.body
-  return User.findOne({
-    where: { email },
-  })
+  return User.findOne({ where: { email } })
     .then(user => {
       if (user) {
         return generalErrors(res, CONFLICT, EMAIL_EXISTS)
       }
       return User.create({ email, password }).then(user => {
         delete user.dataValues.password
-        delete user.dataValues.passwordHash
-        return res.status(200).json(user)
+        return res.status(200).json(user.generateToken())
       })
     })
-    .catch(() => generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG))
+    .catch(err => generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG))
 }
 
 /**
