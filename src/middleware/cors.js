@@ -1,12 +1,3 @@
-import cors from 'cors'
-
-export const corsMiddleware = () => {
-  return cors({
-    origin: (origin, cb) => cb(null, true),
-    credentials: true,
-  })
-}
-
 export const setCorsHeader = (req, res, next) => {
   // CORS headers
   res.header('Access-Control-Allow-Origin', '*') // restrict it to the required domain
