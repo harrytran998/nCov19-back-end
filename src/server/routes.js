@@ -1,17 +1,22 @@
-import { postSignUp, testAuthenticated, postLogin, logout } from '@controllers/User'
+import { postSignUp, testIsAdmin, postLogin, logout } from '@controllers/User'
 import validator from '@middleware/validator'
 import { userValidationRules } from '@libs/validateRules'
-import { isAuthenticated } from '@middleware/auth'
+import { isAdmind, checkTokenSetUser } from '@middleware/auth'
+import { setCorsHeader } from '@middleware/cors'
 
 /**
  *
  * @param {import("express").Application} app
  */
 const setupRoutes = app => {
-  app.get('/authenticated', isAuthenticated, testAuthenticated)
-  app.post('/signUp', validator, postSignUp)
-  app.post('/logIn', postLogin)
+  app.all('/api/*', (req, res, next) => checkTokenSetUser(req, res, next))
+  app.all('/*', (req, res, next) => setCorsHeader(req, res, next))
+
+  app.post('/signUp', userValidationRules(), validator, postSignUp)
+  app.post('/logIn', userValidationRules(), validator, postLogin)
   app.get('/logout', logout)
+
+  app.get('/api/v1/checkAdmin', isAdmind, testIsAdmin)
 }
 
 export default setupRoutes
