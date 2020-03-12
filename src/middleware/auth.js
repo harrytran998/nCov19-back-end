@@ -1,13 +1,13 @@
-import { UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND } from 'http-status-codes'
+import { UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND, FORBIDDEN } from 'http-status-codes'
 import { User } from '@models'
 import { verify } from 'jsonwebtoken'
 import accessEnv from '@helpers/accessEnv'
 import {
-  IS_NOT_AUTHENTICATED,
   INVALID_TOKEN,
   EXPIRED_TOKEN,
   SOMETHING_WRONG,
   USER_NOT_FOUND,
+  INSUFFICIENT_PERMISSION,
 } from '@constants/errorsMessage'
 import { generalErrors } from '@helpers/errorHandlers'
 
@@ -53,7 +53,7 @@ export const checkTokenSetUser = async (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) return next()
-  return generalErrors(UNAUTHORIZED, IS_NOT_AUTHENTICATED)
+export const isAdmind = (req, res, next) => {
+  if (req.user.role === 'ADMIN') return next()
+  return generalErrors(res, FORBIDDEN, INSUFFICIENT_PERMISSION)
 }
