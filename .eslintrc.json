@@ -20,7 +20,14 @@
   "rules": {
     "no-unused-vars": "warn",
     "no-undef": "error",
-    "quotes": ["error", "single"],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
     "no-trailing-spaces": "error"
   }
 }
