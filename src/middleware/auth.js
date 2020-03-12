@@ -1,7 +1,5 @@
 import { UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND, FORBIDDEN } from 'http-status-codes'
 import { User } from '@models'
-import { verify } from 'jsonwebtoken'
-import accessEnv from '@helpers/accessEnv'
 import {
   INVALID_TOKEN,
   EXPIRED_TOKEN,
@@ -10,8 +8,7 @@ import {
   INSUFFICIENT_PERMISSION,
 } from '@constants/errorsMessage'
 import { generalErrors } from '@helpers/errorHandlers'
-
-const JWT_SECRET = accessEnv('JWT_SECRET')
+import { verifyJWT } from '@libs/jwt'
 
 /**
  *
@@ -20,9 +17,10 @@ const JWT_SECRET = accessEnv('JWT_SECRET')
  * @param {import('express').NextFunction} next
  */
 export const checkTokenSetUser = async (req, res, next) => {
-  const authToken = req.get('Authorization').split(' ')[1]
+  console.log(req.headers.authorization)
+  const authToken = req.headers.authorization.split(' ')[1]
   if (authToken) {
-    const payload = await verify(authToken, JWT_SECRET)
+    const payload = await verifyJWT(authToken)
     return User.validateUserToken(payload)
       .then(user => {
         // If no user in the payload exists, respond back with a 401
