@@ -1,16 +1,10 @@
-import errorHandler from 'errorhandler'
+import { generalErrors } from '@helpers/errorHandlers'
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes'
 
 const errorHandlerMiddleware = app => {
-  if (process.env.NODE_ENV == 'development') {
-    // ONLY use in dev
-    app.use(errorHandler())
-  } else {
-    app.use((err, req, res, next) => {
-      return res.status(500).json({
-        message: err.message,
-      })
-    })
-  }
+  app.use((err, req, res) => {
+    return generalErrors(res, INTERNAL_SERVER_ERROR, err.message)
+  })
 }
 
 export default errorHandlerMiddleware
