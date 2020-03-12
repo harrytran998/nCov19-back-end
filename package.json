@@ -36,6 +36,7 @@
     "express-validator": "^6.4.0",
     "fbgraph": "^1.4.4",
     "googleapis": "^47.0.0",
+    "helmet": "^3.21.3",
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.18.2",

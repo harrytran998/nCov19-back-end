@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
+import helmet from 'helmet'
 import { config } from 'dotenv'
 import accessEnv from '@helpers/accessEnv'
 import setupRoutes from '@server/routes'
@@ -23,6 +24,7 @@ app.use(pagination)
 app.use(corsMiddleware())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(helmet())
 app.disable('x-powered-by')
 
 errorHandler(app)
