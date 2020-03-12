@@ -27,14 +27,14 @@ export const MISSING_FIELD = `${UNPROCESSABLE_ENTITY} - Missing field`
 // Not found
 export const RESOURCE_NOT_FOUND = `${NOT_FOUND} - Resource not found`
 export const USER_NOT_FOUND = `${NOT_FOUND} - User not found`
+export const EMAIL_NOT_FOUND = `${NOT_FOUND} - Email not found`
 
 // Conflicts
 export const EMAIL_EXISTS = `${CONFLICT} - Email exists`
 export const INVALID_LOGIN = `${UNAUTHORIZED}- Invalid login`
 
 // Authentication & authorization
-export const INVALID_USER = `${UNAUTHORIZED} - Invalid user`
-export const INCORRECT_PASSWORD = `${UNAUTHORIZED} - Incorrect password`
+export const INCORRECT_CREDENTIALS = `${UNAUTHORIZED} - Incorrect email or password`
 export const IS_NOT_AUTHENTICATED = `${UNAUTHORIZED} - Not authenticated`
 export const INSUFFICIENT_PERMISSION = `${FORBIDDEN} Insufficient permission`
 export const UNVERIFIED_EMAIL = `${UNAUTHORIZED} - Unverified email`
