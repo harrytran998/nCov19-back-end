@@ -17,10 +17,9 @@ import { verifyJWT } from '@libs/jwt'
  * @param {import('express').NextFunction} next
  */
 export const checkTokenSetUser = async (req, res, next) => {
-  console.log(req.headers.authorization)
-  const authToken = req.headers.authorization.split(' ')[1]
-  if (authToken) {
-    const payload = await verifyJWT(authToken)
+  const token = req.get('Authorization').split(' ')[1]
+  if (token) {
+    const payload = await verifyJWT(token)
     return User.validateUserToken(payload)
       .then(user => {
         // If no user in the payload exists, respond back with a 401
@@ -37,7 +36,8 @@ export const checkTokenSetUser = async (req, res, next) => {
         } else if (err.name === 'JsonWebTokenError') {
           return generalErrors(res, UNAUTHORIZED, INVALID_TOKEN)
         } else {
-          return generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG)
+          return next(err)
+          // generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG)
         }
       })
   } else {
