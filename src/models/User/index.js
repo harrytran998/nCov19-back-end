@@ -16,7 +16,7 @@ User.addHook('beforeCreate', (user, option) => {
     .update(user.email)
     .digest('hex')
   if (user.avatar === undefined && user.email) {
-    user.avatar = `https://secure.gravatar.com/avatar/${md5}?s=200&d=identicon`
+    user.avatar = `https://www.gravatar.com/avatar/${md5}?d=404`
   }
 })
 
