@@ -7,14 +7,14 @@ import { hashPassword } from '@libs/handlePassword'
 User.init(
   {
     id: {
+      type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
-      type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
     email: {
-      allowNull: false,
       type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
       set(val) {
         if (val && val.toLowerCase()) {
@@ -32,8 +32,8 @@ User.init(
       },
     },
     passwordHash: {
-      allowNull: false,
       type: DataTypes.STRING,
+      allowNull: false,
     },
     password: {
       type: DataTypes.VIRTUAL,
@@ -50,33 +50,37 @@ User.init(
       },
     },
     avatar: {
-      allowNull: true,
       type: DataTypes.STRING,
+      allowNull: true,
     },
     bio: {
-      allowNull: true,
       type: DataTypes.STRING,
+      allowNull: true,
     },
     role: {
-      allowNull: false,
       type: DataTypes.ENUM(Object.values(userRoles)),
+      allowNull: false,
       defaultValue: Object.values(userRoles)[0],
     },
-    googleID: {
+    acceptTokenAfter: {
+      type: DataTypes.DATE,
       allowNull: true,
+    },
+    googleID: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
     facebookID: {
-      allowNull: true,
       type: DataTypes.STRING,
+      allowNull: true,
     },
     linkedInId: {
-      allowNull: true,
       type: DataTypes.STRING,
+      allowNull: true,
     },
     tokensOAuth: {
-      allowNull: true,
       type: DataTypes.ARRAY(DataTypes.JSON()),
+      allowNull: true,
     },
   },
   {

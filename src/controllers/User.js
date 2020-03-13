@@ -1,5 +1,7 @@
-import { OK } from 'http-status-codes'
+import { OK, UNAUTHORIZED } from 'http-status-codes'
 import { User } from '@models'
+import { IS_NOT_AUTHENTICATED } from '@constants/errorsMessage'
+import { generalErrors } from '@helpers/errorHandlers'
 // import _ from '@helpers/lodash'
 // import sequelize from '@db'
 
@@ -26,4 +28,5 @@ export const getCurrentUser = (req, res, next) => {
       })
       .catch(err => next(err))
   }
+  return generalErrors(res, UNAUTHORIZED, IS_NOT_AUTHENTICATED)
 }

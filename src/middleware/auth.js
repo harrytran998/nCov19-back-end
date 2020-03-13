@@ -1,12 +1,6 @@
-import { UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND, FORBIDDEN } from 'http-status-codes'
+import { UNAUTHORIZED, NOT_FOUND, FORBIDDEN } from 'http-status-codes'
 import { User } from '@models'
-import {
-  INVALID_TOKEN,
-  EXPIRED_TOKEN,
-  SOMETHING_WRONG,
-  USER_NOT_FOUND,
-  INSUFFICIENT_PERMISSION,
-} from '@constants/errorsMessage'
+import { INVALID_TOKEN, EXPIRED_TOKEN, USER_NOT_FOUND, INSUFFICIENT_PERMISSION } from '@constants/errorsMessage'
 import { generalErrors } from '@helpers/errorHandlers'
 import { verifyJWT } from '@libs/jwt'
 
@@ -37,7 +31,7 @@ export const checkTokenSetUser = async (req, res, next) => {
           return generalErrors(res, UNAUTHORIZED, INVALID_TOKEN)
         } else {
           return next(err)
-          // generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG)
+          // generalErrors(res, INTERNAL_SERVER_ERROR, SOMETHING_WRONG) => Production Env
         }
       })
   } else {

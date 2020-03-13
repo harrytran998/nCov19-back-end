@@ -12,10 +12,13 @@ export const postLogin = (req, res, next) => {
   const { email, password } = req.body
   return User.findOne({ where: { email } })
     .then(user => {
-      return user.verifyPassword(password, user.passwordHash).then(isMach => {
-        if (isMach) return res.status(OK).json(user.generateToken())
-        return generalErrors(res, UNAUTHORIZED, INCORRECT_CREDENTIALS)
-      })
+      if (user) {
+        return user.verifyPassword(password, user.passwordHash).then(isMach => {
+          if (isMach) return res.status(OK).json(user.generateToken())
+          return generalErrors(res, UNAUTHORIZED, INCORRECT_CREDENTIALS)
+        })
+      }
+      return generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND)
     })
     .catch(err => next(err))
   // generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND)
