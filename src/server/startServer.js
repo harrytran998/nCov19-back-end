@@ -7,7 +7,6 @@ import setupRoutes from '@server/routes'
 import pagination from '@middleware/pagination'
 import { setCorsHeader } from '@middleware/cors'
 import errorHandler from '@middleware/errorHandler'
-import { checkTokenSetUser } from '@middleware/auth'
 
 config({ encoding: 'utf-8' })
 
@@ -28,7 +27,6 @@ app.use(helmet())
 app.disable('x-powered-by')
 
 app.use(setCorsHeader)
-app.all('/api/*', checkTokenSetUser)
 
 errorHandler(app)
 setupRoutes(app)
