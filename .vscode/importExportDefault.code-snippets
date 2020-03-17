@@ -1,8 +1,0 @@
-{
-  "Import Export Default Module": {
-    "scope": "javascript",
-    "prefix": "iemp",
-    "body": ["import ${1} from './${1}'", "", "export default ${1}"],
-    "description": "Init Controller"
-  }
-}

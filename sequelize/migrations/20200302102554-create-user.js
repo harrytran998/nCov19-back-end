@@ -3,6 +3,9 @@
 import userRoles from '@constants/roles'
 
 module.exports = {
+  /**
+   * @param {import('sequelize/types').QueryInterface} queryInterface
+   */
   up: (queryInterface, DataTypes) => {
     return queryInterface.createTable(
       'users',

@@ -1,0 +1,69 @@
+{
+  "Import Export Default Module": {
+    "scope": "javascript",
+    "prefix": "iemp",
+    "body": ["import ${1} from './${1}'", "", "export default ${1}"],
+    "description": "Init Controller"
+  },
+  "Init Sequelize Migration": {
+    "scope": "javascript",
+    "prefix": "initmigrate",
+    "body": [
+      "'use strict'",
+      "",
+      "module.exports = {",
+      "/**",
+      "* @param {import('sequelize/types').QueryInterface} queryInterface",
+      "*/",
+      "\tup: (queryInterface, DataTypes) => {",
+      "\t\treturn queryInterface.createTable(",
+      "\t\t\t'${1}',",
+      "\t\t\t{",
+      "\t\t\t\t${0},",
+      "\t\t\t},",
+      "\t\t\t{",
+      "\t\t\t\tcharset: 'utf-8',",
+      "\t\t\t},",
+      "\t\t)",
+      "\t},",
+      "\tdown: (queryInterface, DataTypes) => {",
+      "\t\treturn queryInterface.dropTable('${1}')",
+      "\t},",
+      "}"
+    ],
+    "description": "Init Sequelize Migration"
+  },
+  "Init Controller": {
+    "scope": "javascript",
+    "prefix": "initcontroller",
+    "body": [
+      "/**",
+      "\t*",
+      "\t* @param {import('express').Request} req",
+      "\t* @param {import('express').Response} res",
+      "\t* @param {import('express').NextFunction} next",
+      "\t*/",
+      "export const ${1} = (req, res, next) => {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Init Controller"
+  },
+  "Init Sequelize Model": {
+    "scope": "javascript",
+    "prefix": "initmodel",
+    "body": [
+      "import sequelize from '@db'",
+      "import { DataTypes, Model } from 'sequelize'",
+      "",
+      "export class ${1} extends Model {}",
+      "${1}.init({",
+      "",
+      "}, {",
+      "\tsequelize,",
+      "\tmodelName: '${2}',",
+      "})"
+    ],
+    "description": "Init Sequelize Model"
+  }
+}
