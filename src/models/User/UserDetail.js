@@ -8,7 +8,6 @@ class User extends Model {
   /// Class level method
   static validateUserToken(payload) {
     // JWT passed the payload containing ID of instance user
-    console.log(payload)
     return User.findOne({ where: { id: payload.id } }).then(user => {
       /**
        * Check if have user + user have acceptTokenAfter + Issue At time < date of accept Token

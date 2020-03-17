@@ -11,8 +11,9 @@ import { verifyJWT } from '@libs/jwt'
  * @param {import('express').NextFunction} next
  */
 export const checkTokenSetUser = async (req, res, next) => {
-  const token = req.get('Authorization').split(' ')[1]
+  let token = req.get('Authorization')
   if (token) {
+    token = token.split(' ')[1]
     const payload = await verifyJWT(token)
     return User.validateUserToken(payload)
       .then(user => {
