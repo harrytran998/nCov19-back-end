@@ -13,9 +13,9 @@ const setupRoutes = app => {
 
   app.post('/signUp', postSignUp)
   app.post('/logIn', userValidationRules(), validator, postLogin)
-  app.get('/logout', logout)
 
   app.get('/api/v1/users/me', getCurrentUser)
+  app.post('/api/v1/users/logout', logout)
   app.get('/api/v1/checkAdmin', isAdmind, testIsAdmin)
 }
 

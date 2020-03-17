@@ -1,7 +1,7 @@
 import { User } from '@models'
 import { EMAIL_EXISTS, INCORRECT_CREDENTIALS, EMAIL_NOT_FOUND, SOMETHING_WRONG } from '@constants/errorsMessage'
 import { generalErrors } from '@helpers/errorHandlers'
-import { OK, CONFLICT, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NO_CONTENT } from 'http-status-codes'
+import { OK, CONFLICT, UNAUTHORIZED, INTERNAL_SERVER_ERROR } from 'http-status-codes'
 
 /**
  * @param {import('express').Request} req
@@ -21,7 +21,6 @@ export const postLogin = (req, res, next) => {
       return generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND)
     })
     .catch(err => next(err))
-  // generalErrors(res, UNAUTHORIZED, EMAIL_NOT_FOUND)
 }
 
 /**
@@ -51,8 +50,12 @@ export const postSignUp = (req, res, next) => {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export const logout = (req, res) => {
-  return User.update({ acceptTokenAfter: new Date() }).then(() => {
-    return res.status(NO_CONTENT).json({ message: 'Log out successfully' })
-  })
+export const logout = (req, res, next) => {
+  return User.findByPk(req.user.id)
+    .then(user => {
+      user.update({ acceptTokenAfter: new Date() }).then(() => {
+        return res.status(OK).json({ message: 'Log out successfully' })
+      })
+    })
+    .catch(err => next(err))
 }
