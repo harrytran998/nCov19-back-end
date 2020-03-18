@@ -82,6 +82,9 @@ module.exports = {
       },
     )
   },
+  /**
+   * @param {import('sequelize/types').QueryInterface} queryInterface
+   */
   down: async (queryInterface, DataTypes) => {
     await queryInterface.dropTable('users')
     await queryInterface.sequelize.query('DROP TYPE IF EXISTS "public"."enum_users_role"', { raw: true })
