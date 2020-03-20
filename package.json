@@ -1,8 +1,9 @@
 {
-  "name": "node-sql-realworld-boilerplate-app",
+  "name": "n-cov19-back-end",
   "version": "1.0.0",
+  "description": "nCov19 Back End",
   "main": "index.js",
-  "repository": "https://github.com/harrytran998/base-cv.git",
+  "repository": "https://github.com/harrytran998/nCov19-back-end.git",
   "author": "Demons Light <nhattq.coding@gmail.com>",
   "license": "MIT",
   "scripts": {

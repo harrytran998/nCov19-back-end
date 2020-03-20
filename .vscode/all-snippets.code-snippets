@@ -9,7 +9,7 @@
     "scope": "javascript",
     "prefix": "initmigrate",
     "body": [
-      "'use strict'",
+     "'use strict'",
       "",
       "module.exports = {",
       "/**",
