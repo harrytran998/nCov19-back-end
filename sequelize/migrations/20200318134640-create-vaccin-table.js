@@ -18,6 +18,16 @@ module.exports = {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        forVirusId: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: {
+            key: 'id',
+            model: 'virus',
+          },
+          onUpdate: 'NULL',
+          onDelete: 'NULL',
+        },
         dateOfPublished: {
           type: DataTypes.DATE,
           allowNull: false,
