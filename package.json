@@ -17,7 +17,7 @@
     "db:setup": "yarn db:migrate && yarn db:seed"
   },
   "engines": {
-    "node": "12.16.1",
+    "node": "12.16.3",
     "npm": "6.13.4"
   },
   "dependencies": {
